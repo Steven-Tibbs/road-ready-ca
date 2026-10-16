@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Road Ready California</title>
+<meta name="description" content="Practice for the California DMV knowledge (permit) test — 18+ and under-18 versions, 200+ questions, hints, scores, and a drive-test-day checklist.">
+<meta name="theme-color" content="#1B2130">
+<meta name="robots" content="noindex">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Road Ready">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='30,2 70,2 98,30 98,70 70,98 30,98 2,70 2,30' fill='%23C8102E'/%3E%3Ctext x='50' y='62' font-size='30' font-family='Arial' font-weight='900' fill='white' text-anchor='middle'%3ERR%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=Overpass:wght@400;600;700;800;900&family=Overpass+Mono:wght@600;700&display=swap">
+<style>
+/* Layout: one road-at-dusk app shell; single column on phones, two-column home + wider cards on tablet/desktop. */
+:root{
+  --asphalt:#1B2130; --asphalt-2:#242B3C; --asphalt-3:#2F3850; --asphalt-4:#3B4561;
+  --lane:#FFD23F; --lane-ink:#2A2100;
+  --sign:#0F8A5F; --sign-hi:#22B07D;
+  --stop:#E5484D; --go:#3DD68C; --sunset:#FF8A5B;
+  --paper:#F4F6FA; --muted:#A6B0C5; --faint:#6E7891;
+  --font-display:"Bungee", "Arial Black", Impact, sans-serif;
+  --font-body:"Overpass", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-num:"Overpass Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --r:18px; --r-sm:12px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+html{background:var(--asphalt)}
+body{background:var(--asphalt);color:var(--paper);font-family:var(--font-body);font-size:16px;line-height:1.45;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;overflow-x:hidden;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+[hidden]{display:none!important}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+input{font:inherit}
+:focus-visible{outline:3px solid var(--lane);outline-offset:3px;border-radius:8px}
+.app{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:12px 40px}
+
+/* ---------- top bar ---------- */
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:6px 12px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-size:18px;letter-spacing:.02em;text-align:left}
+.brand svg{width:34px;height:34px;flex:none}
+.brand small{display:block;font-family:var(--font-body);font-weight:700;font-size:11px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase}
+.iconbtn{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--asphalt-2);border:1px solid var(--asphalt-3);font-size:20px;flex:none}
+.iconbtn svg{width:22px;height:22px}
+.iconbtn:active{transform:scale(.94)}
+
+/* ---------- hero road ---------- */
+.hero{position:relative;border-radius:24px;overflow:hidden;background:linear-gradient(180deg,#3A2C5A 0%,#B4566A 46%,var(--sunset) 70%,#FFC07A 100%);min-height:240px;isolation:isolate}
+.hero .sun{position:absolute;right:5%;top:112px;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,#FFE9A8 0%,#FFD23F 55%,rgba(255,210,63,0) 72%);animation:sunpulse 6s ease-in-out infinite}
+.hero .hills{position:absolute;inset:auto 0 70px 0;height:90px;width:100%}
+.hero .ground{position:absolute;left:0;right:0;bottom:0;height:86px;background:#1E2638}
+.hero .roadway{position:absolute;left:0;right:0;bottom:14px;height:56px;background:#2B3346;border-top:3px solid #FFFFFF22;border-bottom:3px solid #FFFFFF22;overflow:hidden}
+.hero .dashes{position:absolute;left:0;top:50%;height:6px;margin-top:-3px;width:200%;background:repeating-linear-gradient(90deg,var(--lane) 0 46px,transparent 46px 90px);animation:dash 1.1s linear infinite}
+.hero .car{position:absolute;left:14%;bottom:30px;width:118px;animation:bob .5s ease-in-out infinite alternate}
+.hero .palm{position:absolute;bottom:84px;width:46px;opacity:.9}
+.hero-copy{position:relative;z-index:2;padding:22px 20px 0}
+.hero-copy h1{font-family:var(--font-display);font-weight:400;font-size:clamp(28px,7vw,44px);line-height:1.02;margin:0;text-wrap:balance;text-shadow:0 3px 0 #0003;max-width:14ch}
+.hero-copy p{margin:8px 0 0;font-weight:700;max-width:30ch;text-shadow:0 1px 3px #000a}
+@keyframes dash{to{transform:translateX(-90px)}}
+@keyframes bob{to{transform:translateY(-3px)}}
+@keyframes sunpulse{50%{transform:scale(1.06)}}
+
+/* ---------- home grid ---------- */
+.home{display:grid;gap:18px}
+@media (min-width:860px){.home{grid-template-columns:1.15fr .85fr;align-items:start}.home .hero{grid-column:1/-1;min-height:260px}}
+.panel{background:var(--asphalt-2);border:1px solid var(--asphalt-3);border-radius:var(--r);padding:18px}
+.eyebrow{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+.name-row{display:flex;gap:10px;align-items:center}
+.name-row label{font-weight:700;white-space:nowrap}
+.name-row input{flex:1;min-width:0;background:var(--asphalt);border:2px solid var(--asphalt-4);border-radius:12px;padding:10px 12px;color:var(--paper);font-weight:700}
+.name-row input:focus{border-color:var(--lane);outline:none}
+
+.agepick{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;background:var(--asphalt);border-radius:14px;margin:0 0 14px}
+.agepick button{min-height:44px;padding:8px;border-radius:10px;font-weight:800;color:var(--muted);line-height:1.15}
+.agepick button small{display:block;font-weight:700;font-size:12px;opacity:.85}
+.agepick button[aria-checked="true"]{background:var(--lane);color:var(--lane-ink)}
+
+.modes{display:grid;gap:12px}
+.mode{position:relative;display:flex;align-items:center;gap:14px;text-align:left;padding:16px;border-radius:var(--r);background:var(--asphalt-3);border:2px solid transparent;transition:transform .15s,border-color .15s,background .15s}
+.mode:hover{border-color:var(--asphalt-4)}
+.mode:active{transform:scale(.98)}
+.mode .ico{flex:none;width:52px;height:52px;display:grid;place-items:center}
+.mode .ico svg{width:52px;height:52px}
+.mode b{display:block;font-size:18px;font-weight:900;line-height:1.15}
+.mode span{display:block;color:var(--muted);font-size:14px;font-weight:600}
+.mode.primary{background:var(--sign);border-color:#FFFFFF33;box-shadow:0 6px 0 #0A5C40}
+.mode.primary span{color:#D9F5E8}
+.mode.primary:active{transform:translateY(4px);box-shadow:0 2px 0 #0A5C40}
+.mode.drive{background:#3A2F52;border-color:#5B3B6B}
+.mode .count{margin-left:auto;font-family:var(--font-num);font-weight:700;background:var(--stop);color:#fff;border-radius:999px;padding:2px 10px;font-size:14px;flex:none}
+.mode[disabled]{opacity:.45;cursor:not-allowed}
+
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat{background:var(--asphalt);border-radius:var(--r-sm);padding:12px 10px;text-align:center}
+.stat b{display:block;font-family:var(--font-num);font-size:24px;color:var(--lane);font-variant-numeric:tabular-nums}
+.stat span{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.spark{display:flex;align-items:flex-end;gap:5px;height:84px;padding:6px 4px 0;border-bottom:1px dashed var(--asphalt-4);position:relative}
+.spark .bar{flex:1;max-width:26px;border-radius:6px 6px 2px 2px;background:var(--stop);min-height:6px;transform-origin:bottom;animation:grow .6s cubic-bezier(.2,.9,.3,1.3) both}
+.spark .bar.pass{background:var(--go)}
+.spark .passline{position:absolute;left:0;right:0;border-top:2px dotted var(--lane);font-size:10px;font-weight:800;color:var(--lane)}
+.spark .passline span{position:absolute;right:0;top:-15px}
+.empty-note{color:var(--muted);font-weight:600;font-size:14px;margin:0}
+@keyframes grow{from{transform:scaleY(0)}}
+
+.facts{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.facts li{display:flex;gap:10px;align-items:baseline;font-weight:600}
+.facts li b{font-family:var(--font-num);color:var(--lane);min-width:52px;flex:none}
+.steps{display:grid;gap:10px;margin:0;padding:0;list-style:none;counter-reset:s}
+.steps li{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start;font-weight:600;font-size:15px}
+.steps li::before{counter-increment:s;content:counter(s);width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--asphalt-4);font-family:var(--font-num);font-weight:700;color:var(--lane)}
+.steps li b{display:block;color:var(--paper);font-size:16px}
+.steps li span{color:var(--muted)}
+
+/* ---------- topic picker ---------- */
+.screen-head{display:flex;align-items:center;gap:12px;margin:6px 0 16px}
+.screen-head h2{font-family:var(--font-display);font-weight:400;font-size:24px;margin:0;line-height:1.1}
+.topics{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.topic{display:flex;align-items:center;gap:12px;padding:14px;border-radius:var(--r);background:var(--asphalt-2);border:1px solid var(--asphalt-3);text-align:left}
+.topic:active{transform:scale(.98)}
+.topic .ti{width:44px;height:44px;flex:none;display:grid;place-items:center}
+.topic .ti svg{width:44px;height:44px}
+.topic b{display:block;font-weight:800}
+.topic small{color:var(--muted);font-weight:600}
+.topic .meter{height:6px;background:var(--asphalt);border-radius:9px;margin-top:6px;overflow:hidden}
+.topic .meter i{display:block;height:100%;background:var(--go);border-radius:9px}
+
+/* ---------- quiz ---------- */
+.quiz{max-width:680px;margin:0 auto}
+.quitbar{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.track{position:relative;height:46px;margin:12px 0 10px;border-radius:12px;background:#2B3346;overflow:hidden;border:1px solid var(--asphalt-4)}
+.track .tdash{position:absolute;left:0;right:0;top:50%;height:4px;margin-top:-2px;background:repeating-linear-gradient(90deg,#FFD23F88 0 18px,transparent 18px 34px)}
+.track .finish{position:absolute;right:0;top:0;bottom:0;width:22px;background:repeating-conic-gradient(#fff 0 25%,#111 0 50%) 0 0/11px 11px;opacity:.85}
+.track .tcar{position:absolute;top:8px;left:0;width:56px;transition:left .6s cubic-bezier(.3,1.4,.5,1)}
+.qmeta{display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:800;color:var(--muted);font-size:15px}
+.qmeta .num{font-family:var(--font-num);color:var(--paper)}
+.qmeta .score{display:flex;align-items:center;gap:6px;white-space:nowrap}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:var(--asphalt-3);font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--paper)}
+.streak{color:var(--lane);font-family:var(--font-num)}
+.streak.hot{animation:pop .35s}
+.card{margin-top:12px;background:var(--asphalt-2);border:1px solid var(--asphalt-3);border-radius:22px;padding:18px;animation:slidein .35s cubic-bezier(.2,.8,.3,1)}
+.card.shake{animation:shake .4s}
+.card .chip{margin-bottom:12px;background:var(--asphalt-4)}
+.visual{display:grid;place-items:center;margin:2px 0 16px}
+.visual svg{width:min(150px,42vw);height:auto;filter:drop-shadow(0 6px 10px #0006)}
+.visual.tall svg{width:min(70px,20vw)}
+.visual.square svg{width:min(220px,60vw)}
+.visual.scene svg{width:min(300px,82vw)}
+.qtext{font-size:clamp(19px,4.6vw,23px);font-weight:800;line-height:1.3;margin:0 0 16px;text-wrap:pretty}
+.opts{display:grid;gap:10px}
+.opt{display:flex;align-items:center;gap:12px;text-align:left;width:100%;padding:14px;min-height:58px;border-radius:14px;background:var(--asphalt-3);border:2px solid var(--asphalt-4);font-weight:700;font-size:16px;transition:transform .12s,background .2s,border-color .2s}
+.opt .key{flex:none;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:var(--asphalt);font-family:var(--font-num);font-size:14px;color:var(--muted)}
+.opt:hover:not([disabled]){border-color:var(--lane)}
+.opt:active:not([disabled]){transform:scale(.98)}
+.opt[disabled]{cursor:default}
+.opt.right{background:#164A36;border-color:var(--go)}
+.opt.right .key{background:var(--go);color:#062417}
+.opt.wrong{background:#4E1D24;border-color:var(--stop)}
+.opt.wrong .key{background:var(--stop);color:#fff}
+.opt.dim{opacity:.5}
+.hintrow{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 18px;min-height:48px;border-radius:14px;font-weight:900;font-size:16px;background:var(--asphalt-3);border:2px solid var(--asphalt-4);text-align:center}
+.btn:active{transform:scale(.97)}
+.btn.lane{background:var(--lane);color:var(--lane-ink);border-color:var(--lane);box-shadow:0 5px 0 #B8901A}
+.btn.lane:active{transform:translateY(3px);box-shadow:0 2px 0 #B8901A}
+.btn.green{background:var(--sign);border-color:var(--sign-hi);box-shadow:0 5px 0 #0A5C40}
+.btn.block{width:100%}
+.btn.small{min-height:40px;padding:8px 14px;font-size:15px}
+.hint{margin-top:12px;padding:12px 14px;border-radius:14px;background:#3A3216;border:1px dashed var(--lane);color:#FFE9A8;font-weight:700;animation:slidein .3s}
+.feedback{margin-top:14px;padding:14px;border-radius:14px;animation:slidein .3s}
+.feedback.ok{background:#123D2D;border:1px solid var(--go)}
+.feedback.no{background:#3D171C;border:1px solid var(--stop)}
+.feedback h4{margin:0 0 4px;font-size:18px;font-weight:900}
+.feedback p{margin:0;font-weight:600}
+.next-wrap{margin-top:14px}
+.examnote{margin:12px 0 0;color:var(--faint);font-weight:700;font-size:13px}
+.floaty{position:fixed;pointer-events:none;font-family:var(--font-display);font-size:28px;color:var(--go);z-index:50;animation:floatup .9s ease-out forwards}
+@keyframes slidein{from{opacity:0;transform:translateY(12px)}}
+@keyframes shake{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+@keyframes pop{50%{transform:scale(1.4)}}
+@keyframes floatup{to{transform:translateY(-70px);opacity:0}}
+.confirm-quit{margin-top:10px;padding:12px;border-radius:14px;background:var(--asphalt-2);border:1px solid var(--stop);display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-weight:700}
+
+/* ---------- results ---------- */
+.results{max-width:760px;margin:0 auto;display:grid;gap:16px}
+.scorecard{text-align:center;padding:22px 18px;border-radius:24px;position:relative;overflow:hidden}
+.scorecard.pass{background:linear-gradient(160deg,#0F8A5F,#0B5E44)}
+.scorecard.fail{background:linear-gradient(160deg,#5A2430,#35161D)}
+.ring{width:190px;height:190px;margin:4px auto 6px;position:relative}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .bg{stroke:#0004}
+.ring .fg{stroke:var(--lane);stroke-linecap:round;transition:stroke-dashoffset 1.4s cubic-bezier(.2,.8,.3,1)}
+.ring .center{position:absolute;inset:0;display:grid;place-content:center}
+.ring .pct{font-family:var(--font-display);font-size:48px;line-height:1}
+.ring .frac{font-family:var(--font-num);font-weight:700;opacity:.85}
+.verdict{font-family:var(--font-display);font-size:clamp(26px,7vw,38px);margin:4px 0 2px;line-height:1.05}
+.scorecard p{margin:4px auto 0;font-weight:700;max-width:40ch}
+.badge-stamp{display:inline-block;margin-top:10px;padding:6px 14px;border:3px solid currentColor;border-radius:10px;font-family:var(--font-display);transform:rotate(-4deg);font-size:15px;letter-spacing:.06em}
+.breakdown{display:grid;gap:10px}
+.brow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;align-items:center;font-weight:700}
+.brow .bar{grid-column:1/-1;height:10px;border-radius:9px;background:var(--asphalt);overflow:hidden}
+.brow .bar i{display:block;height:100%;border-radius:9px;background:var(--go);transform-origin:left;animation:growx .9s cubic-bezier(.2,.8,.3,1) both}
+.brow .bar i.mid{background:var(--lane)}
+.brow .bar i.low{background:var(--stop)}
+.brow .n{font-family:var(--font-num);color:var(--muted);font-size:14px}
+@keyframes growx{from{transform:scaleX(0)}}
+.missed{display:grid;gap:12px}
+.miss{background:var(--asphalt);border-radius:14px;padding:14px;border-left:5px solid var(--stop)}
+.miss .mq{font-weight:800;margin:0 0 8px}
+.miss .ans{display:grid;gap:4px;font-weight:700;font-size:15px}
+.miss .yours{color:#FF9EA1}
+.miss .correct{color:#8EF0C1}
+.miss .why{margin:8px 0 0;color:var(--muted);font-weight:600;font-size:15px}
+.tips{display:grid;gap:12px}
+.tip{background:var(--asphalt);border-radius:14px;padding:14px;border:1px solid var(--asphalt-4)}
+.tip h4{margin:0 0 8px;display:flex;align-items:center;gap:10px;font-size:17px}
+.tip h4 .ti{width:32px;height:32px;flex:none;display:grid;place-items:center}
+.tip h4 .ti svg{width:32px;height:32px}
+.tip ul{margin:0;padding-left:20px;display:grid;gap:5px;font-weight:600}
+.tip .trick{margin:10px 0 0;padding:10px 12px;border-radius:10px;background:#3A3216;color:#FFE9A8;font-weight:700;font-size:15px}
+.actions{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+
+/* ---------- study guide ---------- */
+.guide{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.signgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+.signcell{background:var(--asphalt-2);border-radius:14px;padding:12px 8px;text-align:center;font-weight:700;font-size:14px;line-height:1.3}
+.signcell svg{width:84px;height:72px;display:block;margin:0 auto 8px}
+.signcell.wide svg{width:120px}
+.sec-title{font-family:var(--font-display);font-weight:400;font-size:20px;margin:22px 0 10px}
+
+/* ---------- drive test day ---------- */
+.drive{display:grid;gap:16px}
+.drive-grid{display:grid;gap:16px}
+@media (min-width:860px){.drive-grid{grid-template-columns:1fr 1fr;align-items:start}}
+.readybar{display:flex;align-items:center;gap:12px;font-weight:800}
+.readybar .track2{flex:1;height:12px;border-radius:9px;background:var(--asphalt);overflow:hidden}
+.readybar .track2 i{display:block;height:100%;width:0;background:var(--go);border-radius:9px;transition:width .4s}
+.readybar .num{font-family:var(--font-num);color:var(--lane)}
+.note{margin:-4px 0 12px;color:var(--muted);font-weight:600;font-size:14px}
+.checks{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.check{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;padding:12px;border-radius:12px;background:var(--asphalt);border:2px solid transparent;font-weight:700;line-height:1.3}
+.check .box{flex:none;width:26px;height:26px;border-radius:8px;border:2px solid var(--asphalt-4);display:grid;place-items:center;margin-top:-1px;transition:background .15s,border-color .15s}
+.check .box svg{width:16px;height:16px;opacity:0}
+.check small{display:block;color:var(--muted);font-weight:600;font-size:13px;margin-top:2px}
+.check[aria-checked="true"]{border-color:#1E5A41}
+.check[aria-checked="true"] .box{background:var(--go);border-color:var(--go)}
+.check[aria-checked="true"] .box svg{opacity:1}
+.check[aria-checked="true"] .lbl{color:var(--muted);text-decoration:line-through;text-decoration-color:#FFFFFF55}
+
+.drill .prompt{display:flex;gap:10px;align-items:flex-start;padding:14px;border-radius:14px;background:#3A3216;border:1px dashed var(--lane);color:#FFE9A8;font-weight:800;font-size:17px;line-height:1.3}
+.drill .prompt .who{flex:none;font-size:12px;letter-spacing:.12em;text-transform:uppercase;background:var(--lane);color:var(--lane-ink);border-radius:6px;padding:3px 6px;margin-top:1px}
+.drill-stage{display:grid;gap:12px;margin-top:12px}
+@media (min-width:700px){.drill-stage{grid-template-columns:1.6fr 1fr;align-items:center}}
+.drill-stage svg{width:100%;height:auto;display:block;border-radius:16px}
+.rearwrap{background:var(--asphalt);border-radius:16px;padding:8px;width:100%;max-width:300px;justify-self:center}
+.rearwrap p{margin:6px 4px 2px;text-align:center;color:var(--muted);font-weight:700;font-size:13px}
+.arms{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.arms button{padding:10px 6px;border-radius:12px;background:var(--asphalt-3);border:2px solid var(--asphalt-4);font-weight:800;font-size:14px;line-height:1.2}
+.arms button svg{width:44px;height:36px;display:block;margin:0 auto 4px}
+.arms button.ok,.ctl.ok .face{border-color:var(--go);stroke:var(--go)}
+.arms button.no,.ctl.no .face{border-color:var(--stop);stroke:var(--stop)}
+.drill-fb{margin-top:12px;padding:12px 14px;border-radius:14px;font-weight:700;min-height:48px}
+.drill-fb.ok{background:#123D2D;border:1px solid var(--go)}
+.drill-fb.no{background:#3D171C;border:1px solid var(--stop)}
+.drill-fb.idle{background:var(--asphalt);color:var(--muted)}
+.drill-dots{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.drill-dots i{width:14px;height:14px;border-radius:50%;background:var(--asphalt-4)}
+.drill-dots i.d-ok{background:var(--go)}
+.drill-dots i.d-miss{background:var(--lane)}
+.drill-dots i.now{outline:2px solid var(--paper);outline-offset:2px}
+.ctl{cursor:pointer}
+.ctl .face{stroke:#59627A;stroke-width:2;transition:stroke .2s}
+.ctl:hover .face{stroke:var(--lane)}
+.ctl:focus{outline:none}
+.ctl:focus-visible .face{stroke:var(--lane);stroke-width:3.5}
+/* drill effects */
+#beams,#frost,#beep,.arm{opacity:0;transition:opacity .25s}
+#tlL,#tlR{fill:#5C1C22}
+#cbl{fill:#4A1A1E}
+#indL,#indR,#indH{fill:#1F3B2C}
+#indP{stroke:#3A1E22;fill:none}
+#indPt{fill:#3A1E22}
+.wiper{transform-box:view-box}
+#wl{transform-origin:112px 70px}
+#wr{transform-origin:232px 70px}
+.drill[data-fx="lights"] #beams{opacity:1}
+.drill[data-fx="lights"] #indH{fill:#3DD68C}
+.drill[data-fx="lights"] #tlL,.drill[data-fx="lights"] #tlR{fill:#B3262E}
+.drill[data-fx="defrost"] #frost{opacity:1}
+.drill[data-fx="horn"] #beep{opacity:1}
+.drill[data-fx="arm-left"] #armL,.drill[data-fx="arm-right"] #armR,.drill[data-fx="arm-stop"] #armS{opacity:1}
+.drill[data-fx="brake"] #tlL,.drill[data-fx="brake"] #tlR,.drill[data-fx="brake"] #cbl{fill:#FF3B3B}
+.drill[data-fx="sig-left"] #tlL,.drill[data-fx="sig-right"] #tlR,.drill[data-fx="hazard"] #tlL,.drill[data-fx="hazard"] #tlR{animation:amber .8s steps(1) infinite}
+.drill[data-fx="sig-left"] #indL,.drill[data-fx="sig-right"] #indR,.drill[data-fx="hazard"] #indL,.drill[data-fx="hazard"] #indR{animation:grn .8s steps(1) infinite}
+.drill[data-fx="park"] #indP{stroke:#FF4D4D}
+.drill[data-fx="park"] #indPt{fill:#FF4D4D}
+.drill[data-fx="wipers"] #wl,.drill[data-fx="wipers"] #wr{animation:wipe .9s ease-in-out infinite alternate}
+@keyframes amber{0%{fill:#FFB020}50%{fill:#5C1C22}}
+@keyframes grn{0%{fill:#3DD68C}50%{fill:#1F3B2C}}
+@keyframes wipe{from{transform:rotate(0)}to{transform:rotate(62deg)}}
+.tiplist{margin:0;padding-left:20px;display:grid;gap:8px;font-weight:600}
+.tiplist b{color:var(--paper)}
+.fails{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.fails li{padding:10px 12px;border-radius:12px;background:var(--asphalt);border-left:4px solid var(--stop);font-weight:700}
+.fails li span{display:block;color:var(--muted);font-weight:600;font-size:14px}
+.passrule{margin:12px 0 0;padding:12px 14px;border-radius:12px;background:#123D2D;border:1px solid var(--go);font-weight:700}
+.src{color:var(--faint);font-size:13px;font-weight:600;margin:14px 0 0}
+.src a{color:var(--muted)}
+
+/* signal flashing */
+.flash{animation:flash 1s steps(1) infinite}
+@keyframes flash{50%{opacity:.15}}
+
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:60}
+
+@media (min-width:700px){
+  .card{padding:26px}
+  .opt{font-size:17px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+<canvas id="confetti" aria-hidden="true"></canvas>
+<div class="app">
+  <header class="topbar">
+    <button class="brand" id="homeBtn" aria-label="Home">
+      <svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="30,2 70,2 98,30 98,70 70,98 30,98 2,70 2,30" fill="#C8102E" stroke="#fff" stroke-width="5"/><text x="50" y="61" font-size="28" font-family="Bungee, Arial Black" fill="#fff" text-anchor="middle">CA</text></svg>
+      <span>Road Ready<small>CA DMV Practice</small></span>
+    </button>
+    <button class="iconbtn" id="soundBtn" aria-label="Sound on" title="Sound"></button>
+  </header>
+
+  <!-- HOME -->
+  <main id="screen-home" class="home">
+    <section class="hero" aria-label="Welcome">
+      <div class="sun"></div>
+      <svg class="hills" viewBox="0 0 400 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 70 Q60 20 120 55 T240 45 T400 40 V90 H0Z" fill="#5B3B6B" opacity=".8"/><path d="M0 80 Q80 45 170 70 T400 62 V90 H0Z" fill="#3A2F52"/></svg>
+      <svg class="palm" style="left:6%" viewBox="0 0 40 80" aria-hidden="true"><path d="M20 80 Q18 50 21 22" stroke="#1E2638" stroke-width="4" fill="none"/><path d="M21 22 Q8 14 0 22 M21 22 Q30 10 40 18 M21 22 Q14 4 4 6 M21 22 Q28 2 38 4 M21 22 Q20 10 22 0" stroke="#1E2638" stroke-width="4" fill="none" stroke-linecap="round"/></svg>
+      <svg class="palm" style="right:3%;width:34px" viewBox="0 0 40 80" aria-hidden="true"><path d="M20 80 Q22 50 19 22" stroke="#1E2638" stroke-width="4" fill="none"/><path d="M19 22 Q8 14 0 22 M19 22 Q30 10 40 18 M19 22 Q14 4 4 6 M19 22 Q28 2 38 4" stroke="#1E2638" stroke-width="4" fill="none" stroke-linecap="round"/></svg>
+      <div class="ground"></div>
+      <div class="roadway"><div class="dashes"></div></div>
+      <div class="car" id="heroCar"></div>
+      <div class="hero-copy">
+        <h1 id="greet">Let's get you road ready.</h1>
+        <p id="heroSub"></p>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="startH">
+      <p class="eyebrow" id="ageH">Which test are you taking?</p>
+      <div class="agepick" role="radiogroup" aria-labelledby="ageH">
+        <button role="radio" data-age="adult">18 or older<small>36 questions</small></button>
+        <button role="radio" data-age="minor">Under 18<small>46 questions</small></button>
+      </div>
+      <p class="eyebrow" id="startH">Start driving</p>
+      <div class="modes">
+        <button class="mode primary" data-mode="full"><span class="ico" id="icoFull"></span><span><b>Full Practice Test</b><span id="fullDesc"></span></span></button>
+        <button class="mode" data-mode="quick"><span class="ico" id="icoQuick"></span><span><b>Quick Spin</b><span>15 random questions, with hints — perfect for 5 minutes.</span></span></button>
+        <button class="mode" data-mode="topic"><span class="ico" id="icoTopic"></span><span><b>Practice by Topic</b><span>Signs, speed, parking, right-of-way & more.</span></span></button>
+        <button class="mode" data-mode="missed" id="missedBtn"><span class="ico" id="icoMissed"></span><span><b>Fix My Mistakes</b><span>Re-drive the questions you've missed.</span></span><span class="count" id="missedCount">0</span></button>
+        <button class="mode" data-mode="guide"><span class="ico" id="icoGuide"></span><span><b>Study Guide</b><span>All the numbers, signs & curb colors on one page.</span></span></button>
+        <button class="mode drive" data-mode="drive"><span class="ico" id="icoDrive"></span><span><b>Drive Test Day</b><span>Checklist, car safety-check drill & tips for the behind-the-wheel test.</span></span><span class="count" id="driveCount" style="background:var(--asphalt-4)">0%</span></button>
+      </div>
+    </section>
+
+    <aside class="panel" aria-labelledby="dashH">
+      <p class="eyebrow" id="dashH">Your dashboard</p>
+      <div class="name-row">
+        <label for="driverName">Driver</label>
+        <input id="driverName" maxlength="20" placeholder="Type your name" autocomplete="given-name">
+      </div>
+      <div class="stats" style="margin-top:14px">
+        <div class="stat"><b id="stTests">0</b><span>Tests</span></div>
+        <div class="stat"><b id="stBest">–</b><span>Best</span></div>
+        <div class="stat"><b id="stPasses">0</b><span>Passes</span></div>
+      </div>
+      <p class="eyebrow" style="margin-top:16px">Recent full &amp; quick tests</p>
+      <div id="spark"></div>
+      <p class="eyebrow" style="margin-top:18px">The real written test</p>
+      <ul class="facts" id="facts"></ul>
+      <p class="eyebrow" style="margin-top:18px">Your path to a license</p>
+      <ol class="steps" id="steps"></ol>
+    </aside>
+  </main>
+
+  <!-- TOPICS -->
+  <section id="screen-topics" hidden>
+    <div class="screen-head"><button class="iconbtn" data-go="home" aria-label="Back">←</button><h2>Pick a topic</h2></div>
+    <div class="topics" id="topicList"></div>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="screen-quiz" class="quiz" hidden>
+    <div class="quitbar">
+      <button class="btn small" id="quitBtn">✕ Quit</button>
+      <span class="chip" id="modeChip">Full test</span>
+    </div>
+    <div id="quitConfirm" class="confirm-quit" hidden>Leave this test? Progress won't be scored.
+      <button class="btn small" id="quitYes" style="border-color:var(--stop)">Leave</button>
+      <button class="btn small" id="quitNo">Keep going</button>
+    </div>
+    <div class="track" aria-hidden="true"><div class="tdash"></div><div class="finish"></div><div class="tcar" id="trackCar"></div></div>
+    <div class="qmeta">
+      <span>Question <span class="num" id="qNum">1</span> of <span class="num" id="qTot">36</span></span>
+      <span class="score" aria-label="Score"><span>✓ <span class="num" id="qRight">0</span></span><span aria-hidden="true">·</span><span>🔥 <span class="streak" id="qStreak">0</span></span></span>
+    </div>
+    <article class="card" id="qCard">
+      <span class="chip" id="qTopic">Signs</span>
+      <div class="visual" id="qVisual" role="img"></div>
+      <h3 class="qtext" id="qText"></h3>
+      <div class="opts" id="qOpts"></div>
+      <div class="hintrow" id="hintRow"><button class="btn" id="hintBtn">💡 Show hint</button></div>
+      <p class="examnote" id="examNote" hidden>Full test = no hints, just like the DMV.</p>
+      <div id="hintBox" class="hint" hidden></div>
+      <div id="feedback" hidden></div>
+      <div class="next-wrap" id="nextWrap" hidden><button class="btn lane block" id="nextBtn">Next question →</button></div>
+    </article>
+  </section>
+
+  <!-- RESULTS -->
+  <section id="screen-results" class="results" hidden>
+    <div class="scorecard" id="scorecard">
+      <div class="ring">
+        <svg viewBox="0 0 200 200"><circle class="bg" cx="100" cy="100" r="86" fill="none" stroke-width="16"/><circle class="fg" id="ringFg" cx="100" cy="100" r="86" fill="none" stroke-width="16" stroke-dasharray="540.35" stroke-dashoffset="540.35"/></svg>
+        <div class="center"><span class="pct" id="rPct">0%</span><span class="frac" id="rFrac">0 / 0</span></div>
+      </div>
+      <div class="verdict" id="rVerdict"></div>
+      <p id="rMsg"></p>
+      <span class="badge-stamp" id="rStamp"></span>
+    </div>
+    <div class="actions">
+      <button class="btn lane" id="retryMissedBtn">🔁 Retry what I missed</button>
+      <button class="btn green" id="againBtn">Take another test</button>
+      <button class="btn" data-go="home">Home</button>
+    </div>
+    <div class="panel"><p class="eyebrow">Score by topic</p><div class="breakdown" id="breakdown"></div></div>
+    <div class="panel" id="tipsPanel"></div>
+    <div class="panel" id="missedPanel"><p class="eyebrow">Questions to review</p><div class="missed" id="missedList"></div></div>
+  </section>
+
+  <!-- GUIDE -->
+  <section id="screen-guide" hidden>
+    <div class="screen-head"><button class="iconbtn" data-go="home" aria-label="Back">←</button><h2>Study Guide</h2></div>
+    <div class="guide" id="guideCards"></div>
+    <h3 class="sec-title">Sign shapes & signals</h3>
+    <div class="signgrid" id="signGallery"></div>
+    <h3 class="sec-title">Curb colors</h3>
+    <div class="signgrid" id="curbGallery"></div>
+    <div style="margin-top:20px"><button class="btn lane block" data-mode="full">I'm ready — start a full test</button></div>
+  </section>
+
+  <!-- DRIVE TEST DAY -->
+  <section id="screen-drive" class="drive" hidden>
+    <div class="screen-head" style="margin-bottom:0"><button class="iconbtn" data-go="home" aria-label="Back">←</button><h2>Drive Test Day</h2></div>
+    <div class="panel">
+      <div class="readybar"><span>Ready</span><div class="track2"><i id="readyFill"></i></div><span class="num" id="readyNum">0/0</span></div>
+    </div>
+    <div class="drive-grid">
+      <section class="panel" aria-labelledby="bringH">
+        <p class="eyebrow" id="bringH">Bring with you</p>
+        <ul class="checks" id="ckBring"></ul>
+      </section>
+      <section class="panel" aria-labelledby="carH">
+        <p class="eyebrow" id="carH">Car check — the day before</p>
+        <p class="note">If any of these fail, the DMV reschedules your test. Have a helper stand behind the car while you work the lights.</p>
+        <ul class="checks" id="ckCar"></ul>
+      </section>
+    </div>
+
+    <section class="panel drill" id="drill" aria-labelledby="drillH">
+      <p class="eyebrow" id="drillH">Practice the safety check</p>
+      <p class="note" style="margin-top:0">Before you drive, the examiner asks you to show these. Tap the right control on the dashboard (or the arm signal below).</p>
+      <div class="prompt" aria-live="polite"><span class="who">Examiner</span><span id="drillAsk"></span></div>
+      <div class="drill-stage">
+        <svg id="dash" viewBox="0 0 360 300" role="group" aria-label="Car dashboard">
+          <rect width="360" height="300" rx="16" fill="#12161F"/>
+          <path d="M16 0 H344 A16 16 0 0 1 360 16 V72 H0 V16 A16 16 0 0 1 16 0Z" fill="#6E8FB8"/>
+          <path d="M0 52 Q60 34 120 46 T240 40 T360 44 V72 H0Z" fill="#4E6B57"/>
+          <polygon points="170,40 190,40 320,72 40,72" fill="#4A5266"/>
+          <path d="M180 42 V70" stroke="#FFD23F" stroke-width="2" stroke-dasharray="5 5"/>
+          <polygon id="beams" points="168,42 192,42 300,72 60,72" fill="#FFF3B0" opacity="0"/>
+          <g id="frost" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round"><path d="M90 66 q4 -6 0 -12 q-4 -6 0 -12"/><path d="M180 66 q4 -6 0 -12 q-4 -6 0 -12 q4 -6 0 -12"/><path d="M270 66 q4 -6 0 -12 q-4 -6 0 -12"/></g>
+          <g stroke="#1A1F2B" stroke-width="3.5" stroke-linecap="round"><line class="wiper" id="wl" x1="112" y1="70" x2="44" y2="64"/><line class="wiper" id="wr" x1="232" y1="70" x2="164" y2="64"/></g>
+          <path d="M0 68 H360 V176 Q290 190 220 186 H0Z" fill="#1E2433"/>
+          <rect x="78" y="78" width="104" height="44" rx="12" fill="#0B0E15"/>
+          <path id="indL" d="M96 100 l11 -9 v18z"/>
+          <path id="indR" d="M164 100 l-11 9 v-18z"/>
+          <circle id="indP" cx="130" cy="92" r="8" stroke-width="2"/>
+          <text id="indPt" x="130" y="95.5" font-size="10" font-family="Overpass, Arial" font-weight="900" text-anchor="middle">P</text>
+          <path id="indH" d="M124 110 q-6 0 -6 6 q0 6 6 6z M126 108 h8 v2 h-8z M126 113 h8 v2 h-8z M126 118 h8 v2 h-8z" transform="translate(0 -4)"/>
+          <g class="ctl" data-ctl="headlights" tabindex="0" role="button" aria-label="Headlight switch">
+            <circle class="face" cx="32" cy="92" r="17" fill="#2A3142"/>
+            <path d="M28 85 q-8 7 0 14z" fill="#C9D1E0"/><path d="M31 86 h8 M31 92 h8 M31 98 h8" stroke="#C9D1E0" stroke-width="2.2" stroke-linecap="round"/>
+          </g>
+          <path d="M102 172 L58 160" stroke="#59627A" stroke-width="9" stroke-linecap="round"/>
+          <path d="M158 172 L206 160" stroke="#59627A" stroke-width="9" stroke-linecap="round"/>
+          <circle cx="130" cy="194" r="58" fill="none" stroke="#3A4157" stroke-width="13"/>
+          <path d="M84 196 H108 M152 196 H176 M130 216 V246" stroke="#3A4157" stroke-width="11"/>
+          <g class="ctl" data-ctl="horn" tabindex="0" role="button" aria-label="Center of the steering wheel">
+            <circle class="face" cx="130" cy="196" r="22" fill="#2A3142"/>
+            <path d="M121 192 h4 l9 -6 v20 l-9 -6 h-4z" fill="#C9D1E0"/><path d="M138 190 q4 6 0 12" stroke="#C9D1E0" stroke-width="2" fill="none" stroke-linecap="round"/>
+          </g>
+          <g class="ctl" data-ctl="sig-up" tabindex="0" role="button" aria-label="Turn-signal lever: push up">
+            <rect class="face" x="14" y="118" width="48" height="32" rx="9" fill="#2A3142"/>
+            <path d="M38 124 l9 11 h-18z" fill="#C9D1E0"/><text x="38" y="146" font-size="8" font-family="Overpass, Arial" font-weight="900" fill="#C9D1E0" text-anchor="middle">UP</text>
+          </g>
+          <g class="ctl" data-ctl="sig-down" tabindex="0" role="button" aria-label="Turn-signal lever: push down">
+            <rect class="face" x="14" y="166" width="48" height="32" rx="9" fill="#2A3142"/>
+            <path d="M38 192 l9 -11 h-18z" fill="#C9D1E0"/><text x="38" y="177" font-size="8" font-family="Overpass, Arial" font-weight="900" fill="#C9D1E0" text-anchor="middle">DOWN</text>
+          </g>
+          <g class="ctl" data-ctl="wipers" tabindex="0" role="button" aria-label="Right-side lever">
+            <rect class="face" x="196" y="140" width="50" height="34" rx="9" fill="#2A3142"/>
+            <path d="M206 166 q15 -18 30 0" stroke="#C9D1E0" stroke-width="2.2" fill="none"/><path d="M221 166 l-8 -12" stroke="#C9D1E0" stroke-width="2.5" stroke-linecap="round"/><path d="M216 146 v4 M222 144 v4 M228 146 v4" stroke="#9BD4F5" stroke-width="2" stroke-linecap="round"/>
+          </g>
+          <rect x="254" y="80" width="94" height="94" rx="12" fill="#151A25"/>
+          <g class="ctl" data-ctl="hazard" tabindex="0" role="button" aria-label="Red triangle button">
+            <rect class="face" x="282" y="86" width="38" height="32" rx="8" fill="#2A3142"/>
+            <path d="M301 92 l11 19 h-22z" fill="none" stroke="#FF4D4D" stroke-width="3" stroke-linejoin="round"/>
+          </g>
+          <g class="ctl" data-ctl="defrost-front" tabindex="0" role="button" aria-label="Button with a curved windshield icon">
+            <rect class="face" x="260" y="128" width="38" height="38" rx="8" fill="#2A3142"/>
+            <path d="M266 158 q13 -10 26 0" stroke="#C9D1E0" stroke-width="2.2" fill="none"/><path d="M272 152 q3 -4 0 -8 q-3 -4 0 -8 M279 152 q3 -4 0 -8 q-3 -4 0 -8 M286 152 q3 -4 0 -8 q-3 -4 0 -8" stroke="#FF8A5B" stroke-width="2" fill="none" stroke-linecap="round"/>
+          </g>
+          <g class="ctl" data-ctl="defrost-rear" tabindex="0" role="button" aria-label="Button with a rectangle icon">
+            <rect class="face" x="304" y="128" width="38" height="38" rx="8" fill="#2A3142"/>
+            <rect x="311" y="148" width="24" height="12" rx="2" stroke="#C9D1E0" stroke-width="2" fill="none"/><path d="M316 145 q3 -4 0 -8 q-3 -4 0 -8 M323 145 q3 -4 0 -8 q-3 -4 0 -8 M330 145 q3 -4 0 -8 q-3 -4 0 -8" stroke="#FF8A5B" stroke-width="2" fill="none" stroke-linecap="round"/>
+          </g>
+          <rect x="262" y="196" width="84" height="94" rx="14" fill="#1E2433"/>
+          <g class="ctl" data-ctl="parkbrake" tabindex="0" role="button" aria-label="Lever between the seats">
+            <rect class="face" x="290" y="206" width="28" height="70" rx="12" fill="#2A3142"/>
+            <circle cx="304" cy="224" r="9" fill="none" stroke="#C9D1E0" stroke-width="2"/><text x="304" y="228" font-size="11" font-family="Overpass, Arial" font-weight="900" fill="#C9D1E0" text-anchor="middle">P</text>
+          </g>
+          <g class="ctl" data-ctl="brake" tabindex="0" role="button" aria-label="Wide pedal">
+            <rect class="face" x="98" y="262" width="48" height="28" rx="6" fill="#3A4157"/>
+            <path d="M106 270 h32 M106 276 h32 M106 282 h32" stroke="#2A3142" stroke-width="2"/>
+          </g>
+          <g class="ctl" data-ctl="gas" tabindex="0" role="button" aria-label="Narrow pedal">
+            <rect class="face" x="166" y="252" width="20" height="40" rx="5" fill="#3A4157"/>
+            <path d="M170 260 h12 M170 266 h12 M170 272 h12 M170 278 h12" stroke="#2A3142" stroke-width="2"/>
+          </g>
+        </svg>
+        <div class="rearwrap">
+          <svg id="rear" viewBox="0 0 170 120" aria-hidden="true">
+            <rect width="170" height="120" rx="12" fill="#2E3446"/>
+            <path d="M0 106H170V108A12 12 0 0 1 158 120H12A12 12 0 0 1 0 108Z" fill="#262B3A"/>
+            <path d="M90 36 H142 Q148 36 150 44 L154 60 H78 L82 44 Q84 36 90 36Z" fill="#3B6FD8"/>
+            <path d="M92 41 H140 L145 57 H87Z" fill="#9BD4F5"/>
+            <rect id="cbl" x="106" y="42" width="20" height="3" rx="1.5"/>
+            <rect x="70" y="58" width="92" height="34" rx="8" fill="#3B6FD8"/>
+            <rect id="tlL" x="75" y="64" width="16" height="8" rx="2"/>
+            <rect id="tlR" x="141" y="64" width="16" height="8" rx="2"/>
+            <rect x="104" y="72" width="24" height="12" rx="2" fill="#F4F6FA"/>
+            <rect x="70" y="86" width="92" height="8" rx="3" fill="#1E2433"/>
+            <rect x="76" y="92" width="16" height="13" rx="3" fill="#111"/><rect x="140" y="92" width="16" height="13" rx="3" fill="#111"/>
+            <g id="armL" class="arm"><path d="M84 55 H26" stroke="#E8B48C" stroke-width="9" stroke-linecap="round"/><circle cx="22" cy="55" r="6" fill="#E8B48C"/></g>
+            <g id="armR" class="arm"><path d="M84 55 H48 V20" stroke="#E8B48C" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="48" cy="15" r="6" fill="#E8B48C"/></g>
+            <g id="armS" class="arm"><path d="M84 55 H48 V90" stroke="#E8B48C" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="48" cy="95" r="6" fill="#E8B48C"/></g>
+            <g id="beep"><rect x="10" y="10" width="62" height="26" rx="13" fill="#FFD23F"/><text x="41" y="28" font-size="14" font-family="Bungee, Arial Black" fill="#2A2100" text-anchor="middle">BEEP!</text></g>
+          </svg>
+          <p>What the examiner sees from behind</p>
+        </div>
+      </div>
+      <div class="arms" role="group" aria-label="Arm signals">
+        <button data-ctl="arm-left"><svg viewBox="0 0 44 36" aria-hidden="true"><path d="M40 18 H8" stroke="#E8B48C" stroke-width="5" stroke-linecap="round"/><circle cx="6" cy="18" r="4" fill="#E8B48C"/></svg>Arm straight out</button>
+        <button data-ctl="arm-right"><svg viewBox="0 0 44 36" aria-hidden="true"><path d="M40 26 H18 V8" stroke="#E8B48C" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="18" cy="5" r="4" fill="#E8B48C"/></svg>Arm bent up</button>
+        <button data-ctl="arm-stop"><svg viewBox="0 0 44 36" aria-hidden="true"><path d="M40 8 H18 V26" stroke="#E8B48C" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="18" cy="30" r="4" fill="#E8B48C"/></svg>Arm bent down</button>
+      </div>
+      <div class="drill-fb idle" id="drillFb" aria-live="polite">Tap a control to answer.</div>
+      <div class="drill-dots" id="drillDots" aria-hidden="true"></div>
+      <div style="margin-top:12px"><button class="btn small" id="drillRestart">↻ Start the drill over</button></div>
+      <p class="src">Every car is different — find each of these in the exact car you'll test in. On the real test, missing 4 or more of the parking brake, arm signals, wipers, defroster, flashers, and headlights is a fail.</p>
+    </section>
+
+    <section class="panel" aria-labelledby="tipsH">
+      <p class="eyebrow" id="tipsH">Tips to pass the drive</p>
+      <ol class="tiplist" id="driveTips"></ol>
+    </section>
+    <section class="panel" aria-labelledby="failH">
+      <p class="eyebrow" id="failH">Automatic fails — never do these</p>
+      <ul class="fails" id="driveFails"></ul>
+      <p class="passrule">To pass: <b>zero</b> automatic fails, <b>15 or fewer</b> driving mistakes, and no more than <b>3</b> misses on the safety-check items.</p>
+      <p class="src">Source: California DMV Driving Test Criteria (pre-drive checklist and DPE scoring). Rules can change — double-check at dmv.ca.gov when you book.</p>
+    </section>
+  </section>
+</div>
+
+<script src="js/questions.js"></script>
+<script src="js/visuals.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
