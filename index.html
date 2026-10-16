@@ -4,9 +4,22 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Road Ready California</title>
-<meta name="description" content="Practice for the California DMV knowledge (permit) test — 18+ and under-18 versions, 200+ questions, hints, scores, and a drive-test-day checklist.">
+<meta name="description" content="Free, open-source practice for the California DMV knowledge (permit) test — 18+ and under-18 versions, 200+ questions, and a drive-test-day checklist.">
 <meta name="theme-color" content="#1B2130">
-<meta name="robots" content="noindex">
+<link rel="canonical" href="https://road-ready-ca.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Road Ready California">
+<meta property="og:title" content="Road Ready California — free CA DMV practice test">
+<meta property="og:description" content="200+ questions, fresh random tests, 18+ and under-18 versions, plus a drive-test-day checklist. Free and open source.">
+<meta property="og:url" content="https://road-ready-ca.vercel.app/">
+<meta property="og:image" content="https://road-ready-ca.vercel.app/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Road Ready California: free CA DMV practice test">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Road Ready California — free CA DMV practice test">
+<meta name="twitter:description" content="200+ questions, fresh random tests, 18+ and under-18 versions, plus a drive-test-day checklist. Free and open source.">
+<meta name="twitter:image" content="https://road-ready-ca.vercel.app/og.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Road Ready">
@@ -113,6 +126,10 @@ input{font:inherit}
 .steps li::before{counter-increment:s;content:counter(s);width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--asphalt-4);font-family:var(--font-num);font-weight:700;color:var(--lane)}
 .steps li b{display:block;color:var(--paper);font-size:16px}
 .steps li span{color:var(--muted)}
+
+.foot{grid-column:1/-1;text-align:center;color:var(--faint);font-weight:600;font-size:13px;padding:4px 8px 0}
+.foot p{margin:0 0 6px}
+.foot a{color:var(--muted)}
 
 /* ---------- topic picker ---------- */
 .screen-head{display:flex;align-items:center;gap:12px;margin:6px 0 16px}
@@ -386,6 +403,10 @@ input{font:inherit}
       <p class="eyebrow" style="margin-top:18px">Your path to a license</p>
       <ol class="steps" id="steps"></ol>
     </aside>
+    <footer class="foot">
+      <p>Free and open source — <a href="https://github.com/Steven-Tibbs/road-ready-ca" target="_blank" rel="noopener">view on GitHub</a> or request another state.</p>
+      <p>Not affiliated with the California DMV. Laws change — always check the official <a href="https://www.dmv.ca.gov/portal/handbook/california-driver-handbook/" target="_blank" rel="noopener">California Driver's Handbook</a>.</p>
+    </footer>
   </main>
 
   <!-- TOPICS -->
