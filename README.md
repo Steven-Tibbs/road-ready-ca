@@ -1,13 +1,13 @@
-# Road Ready California
+# Road Ready
 
-**Free, open-source practice for the California DMV knowledge (permit) test.**
-Try it: **https://road-ready-ca.vercel.app**
+**Free, open-source practice for the DMV knowledge (permit) test, state by state.**
+Try it: **https://dmv.restrike.dev** (California is ready at **https://dmv.restrike.dev/ca/**)
 
 I built this for my kids, who are studying for their driving tests. The app we were looking at on the Play Store was $12.99 a month, so I made my own. It's free for anyone to use, copy, or adapt.
 
-![Road Ready California](og.png)
+![Road Ready](og.png)
 
-## What's in it
+## What's in California
 
 - **Both test versions:** 18 or older (36 questions, 30 to pass) and under 18 (46 questions, 38 to pass). Rules that only apply to teens (provisional license, 25+ supervisor, 50 practice hours) are left out of the 18+ test, and vice versa.
 - **207 questions across 12 topics**, based on the California Driver's Handbook and laws in effect in 2026 (Slow Down/Move Over for any car with hazards on, 20 mph school zones, no parking within 20 ft of a crosswalk, changing lanes to pass bicyclists).
@@ -26,10 +26,13 @@ Plain HTML, CSS, and JavaScript. No framework, no build step.
 
 | File | What it holds |
 | --- | --- |
-| `index.html` | Markup and styles |
-| `js/questions.js` | Topics, study tips, and the question bank |
-| `js/visuals.js` | SVG road signs and scenes |
-| `js/app.js` | Test building, quiz, results, and drive-day logic |
+| `index.html`, `hub.js` | The state picker: a tile map of every state, with each state's real licensing agency (not every state calls it the DMV) |
+| `ca/index.html` | California: markup and styles |
+| `ca/js/questions.js` | Topics, study tips, and the question bank |
+| `ca/js/visuals.js` | SVG road signs and scenes |
+| `ca/js/app.js` | Test building, quiz, results, and drive-day logic |
+
+A new state gets its own folder (`tx/`, `ny/`…) with its own question bank, and an `href` on its entry in `hub.js` to light up its tile.
 
 Each question looks like this — the first answer is the correct one (the app shuffles them):
 
@@ -41,11 +44,13 @@ Each question looks like this — the first answer is the correct one (the app s
 
 `t` = topic, `s` = optional picture, `q` = question, `a` = answers, `h` = hint, `e` = explanation, and `who:"adult"` or `who:"minor"` for rules that only apply to one age group.
 
-To run it locally, open `index.html` or serve the folder with any static server (`npx serve .`). To deploy, point Vercel, Netlify, Cloudflare Pages, or GitHub Pages at the repo root with no build command.
+To run it locally, serve the folder with any static server (`npx serve .` or `python -m http.server`) and open http://localhost:3000 or :8000.
+
+It's deployed to Cloudflare as static assets (`wrangler.jsonc`; files that aren't part of the site are listed in `.assetsignore`). To publish: `npx wrangler deploy`.
 
 ## Disclaimer
 
-Not affiliated with the California DMV. Laws and test formats change — always check the official [California Driver's Handbook](https://www.dmv.ca.gov/portal/handbook/california-driver-handbook/) and [dmv.ca.gov](https://www.dmv.ca.gov). The DMV doesn't publish the exact question count for the 18+ test; 36 questions / 30 correct is the widely reported format, and the DMV's stated minimum is 80%.
+Not affiliated with the California DMV or any state agency. Laws and test formats change — always check the official [California Driver's Handbook](https://www.dmv.ca.gov/portal/handbook/california-driver-handbook/) and [dmv.ca.gov](https://www.dmv.ca.gov). The DMV doesn't publish the exact question count for the 18+ test; 36 questions / 30 correct is the widely reported format, and the DMV's stated minimum is 80%.
 
 ## License
 

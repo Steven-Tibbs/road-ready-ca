@@ -5,3 +5,4 @@ original.html
 
 .vercel
 .env*
+.wrangler

@@ -1,0 +1,8 @@
+{
+  // Static site, no build step: Cloudflare serves this folder at dmv.restrike.dev.
+  // Files that aren't part of the site are listed in .assetsignore.
+  "name": "road-ready",
+  "compatibility_date": "2026-11-01",
+  "assets": { "directory": ".", "not_found_handling": "404-page" },
+  "routes": [{ "pattern": "dmv.restrike.dev", "custom_domain": true }]
+}

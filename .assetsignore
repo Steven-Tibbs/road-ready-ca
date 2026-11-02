@@ -1,0 +1,13 @@
+.git
+.github
+.vercel
+.wrangler
+_dev
+node_modules
+original.html
+README.md
+LICENSE
+wrangler.jsonc
+.gitignore
+.vercelignore
+.assetsignore
